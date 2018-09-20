@@ -8,9 +8,6 @@ TEST_CYCLE = 20
 GET_CYCLE = 20
 TEST_ENABLE = True
 GET_ENABLE = True
-WEB_ENABLE = True
-WEB_HOST = '127.0.0.1'
-WEB_PORT = 5000
 
 class Scheduler:
     def schedule_test(self,cycle = TEST_CYCLE):
@@ -37,13 +34,6 @@ class Scheduler:
             getter.run()
             time.sleep(cycle)
 
-    def schedule_web(self):
-        '''
-        开启web服务
-        :return:
-        '''
-        app.run(host=WEB_HOST,port=WEB_PORT)
-
     def run(self):
         '''
         总体调度
@@ -57,10 +47,6 @@ class Scheduler:
         if GET_ENABLE:
             getter_process = Process(target=self.schedule_get())
             getter_process.start()
-
-        if WEB_ENABLE:
-            web_process = Process(target=self.schedule_web())
-            web_process.start()
 
 if __name__=='__main__':
     s = Scheduler()
